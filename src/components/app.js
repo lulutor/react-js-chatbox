@@ -13,7 +13,7 @@ class App extends React.Component {
 
     state = {
         messages: {}
-    }
+    };
 
     componentWillMount() {
         this.ref = database.syncState( '/', {
@@ -28,7 +28,6 @@ class App extends React.Component {
     }
 
     isUser( pseudo ) {
-        // return false;
         return pseudo === this.props.match.params.pseudo;
     }
 
@@ -63,7 +62,10 @@ class App extends React.Component {
                 <CSSTransition
                      key={ key }
                      classNames="message"
-                     timeout={{ enter: 250, exit: 250 }}
+                     timeout={{
+                         enter: 250,
+                         exit: 250
+                     }}
                 >
                 <Message
                     key={ key }
@@ -76,8 +78,7 @@ class App extends React.Component {
         return (
             <div className="box">
                 <div className="messages" ref={ div => this.messagesDiv = div }>
-                    <TransitionGroup
-                        className="messages-container">
+                    <TransitionGroup className="messages-container">
                         { messages }
                     </TransitionGroup>
                 </div>
@@ -90,6 +91,10 @@ class App extends React.Component {
         );
     }
 
+    componentWillUnmount() {
+        database.removeBinding( this.ref );
+    }
+
     static propTypes = {
         maxMessages: PropTypes.number,
         match: PropTypes.shape({
@@ -100,7 +105,7 @@ class App extends React.Component {
     };
 
     static defaultProps = {
-        maxMessages: 10
+        maxMessages: 5
     };
 }
 export default App;
