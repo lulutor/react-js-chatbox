@@ -5,8 +5,6 @@ class Connexion extends React.Component {
 
     goToChat( event ) {
 
-        console.log(this.props);
-
         event.preventDefault();
 
         // recuperer le pseudo
