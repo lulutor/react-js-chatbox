@@ -7,7 +7,7 @@ import Connexion from './components/connexion';
 import NotFound from './components/not-found';
 
 // router
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 
 // css
 import './index.css';
@@ -26,7 +26,7 @@ const Root = () => {
     return (
         <BrowserRouter>
             <div>
-                <Route exact path="/" component={ Connexion } />
+                <Route exact path="/" component={ withRouter(Connexion) } />
                 <Route path="/pseudo/:pseudo" component={ MyApp }/>
                 <Route component={ NotFound }/>
             </div>

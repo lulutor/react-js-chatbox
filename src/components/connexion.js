@@ -1,10 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
+import PropTypes from 'prop-types'
 
 class Connexion extends React.Component {
 
     goToChat( event ) {
+
+        console.log(this.props);
 
         event.preventDefault();
 
@@ -14,9 +15,8 @@ class Connexion extends React.Component {
         // changer l'url
         let url = `/pseudo/${pseudo}`;
 
-        // this.context.router.transitionTo(url);
-        this.context.router.history.push( url );
-
+        this.props.history.push( url );
+        // window.location.assign( url );
     };
 
     render() {
@@ -36,8 +36,10 @@ class Connexion extends React.Component {
 
     }
 
-    static contextTypes = {
-        router: PropTypes.object
+    static propTypes = {
+        match: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired
     }
 
 }
