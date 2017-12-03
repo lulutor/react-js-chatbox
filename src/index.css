@@ -67,7 +67,6 @@ body {
 
 .messages {
     flex: 1 1 100%;
-    /*border: 5px solid red;*/
     box-sizing: border-box;
     align-self: flex-end;
     max-height: calc(100vh - 310px);
@@ -83,17 +82,13 @@ body {
     background-color: #eceff1;
 }
 
-/* ----------------------------
-	MESSAGE
----------------------------- */
-
-.message {
+.messages-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.message > * {
+.messages-container > * {
     padding: 5px 10px;
     max-width: 75%;
     border-radius: 2px;
@@ -101,6 +96,11 @@ body {
     overflow-wrap: break-word;
     word-wrap: break-word;
 }
+
+
+/* ----------------------------
+	MESSAGE
+---------------------------- */
 
 .not-user-message {
     background-color: #eceff1;

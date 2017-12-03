@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Formulaire extends React.Component {
 
@@ -55,9 +56,9 @@ class Formulaire extends React.Component {
     }
 
     static propTypes = {
-        addMessage: React.PropTypes.func.isRequired,
-        pseudo: React.PropTypes.string.isRequired,
-        length: React.PropTypes.number.isRequired
+        addMessage: PropTypes.func.isRequired,
+        pseudo: PropTypes.string.isRequired,
+        length: PropTypes.number.isRequired
     }
 
 }

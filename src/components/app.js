@@ -2,9 +2,11 @@ import React from 'react';
 import Formulaire from './formulaire';
 import Message from './messages';
 import database from '../database';
+import PropTypes from 'prop-types';
 
 //css
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
 import '../animation.css';
 
 class App extends React.Component {
@@ -26,7 +28,8 @@ class App extends React.Component {
     }
 
     isUser( pseudo ) {
-        return pseudo === this.props.params.pseudo;
+        // return false;
+        return pseudo === this.props.match.params.pseudo;
     }
 
     addMessage( message ) {
@@ -58,29 +61,30 @@ class App extends React.Component {
         const messages = Object
             .keys( this.state.messages )
             .map( key =>
+                <CSSTransition
+                     key={ key }
+                     classNames="message"
+                     timeout={{ enter: 200, exit: 200 }}
+                >
                 <Message
                     key={ key }
                     details={ this.state.messages[ key ] }
                     isUser={ this.isUser.bind( this ) }
                 />
+                </CSSTransition>
             );
 
         return (
             <div className="box">
                 <div className="messages" ref={ div => this.messagesDiv = div }>
-                    <ReactCSSTransitionGroup
-                        component="div"
-                        className="message"
-                        transitionName="message"
-                        transitionEnterTimeout={200}
-                        transitionLeaveTimeout={200}
-                    >
+                    <TransitionGroup
+                        className="messages-container">
                         { messages }
-                    </ReactCSSTransitionGroup>
+                    </TransitionGroup>
                 </div>
                 <Formulaire
                     addMessage={ this.addMessage.bind( this ) }
-                    pseudo={ this.props.params.pseudo }
+                    pseudo={ this.props.match.params.pseudo }
                     length={ 200 }
                 />
             </div>
@@ -88,9 +92,11 @@ class App extends React.Component {
     }
 
     static propTypes = {
-        maxMessages: React.PropTypes.number,
-        params: React.PropTypes.shape({
-            pseudo: React.PropTypes.string.isRequired
+        maxMessages: PropTypes.number,
+        match: PropTypes.shape({
+            params: PropTypes.shape({
+                pseudo: PropTypes.string.isRequired
+            })
         })
     }
 }

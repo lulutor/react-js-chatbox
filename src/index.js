@@ -7,7 +7,7 @@ import Connexion from './components/connexion';
 import NotFound from './components/not-found';
 
 // router
-import { BrowserRouter, Match, Miss } from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 // css
 import './index.css';
@@ -26,12 +26,14 @@ const Root = () => {
     return (
         <BrowserRouter>
             <div>
-                <Match exactly pattern="/" component={ Connexion } />
-                <Match pattern="/pseudo/:pseudo" render={ MyApp } />
-                <Miss component={ NotFound } />
+                <Route exact path="/" component={ Connexion } />
+                <Route path="/pseudo/:pseudo" component={ MyApp }/>
+                <Route component={ NotFound }/>
             </div>
         </BrowserRouter>
     );
+
+
 };
 
 render(

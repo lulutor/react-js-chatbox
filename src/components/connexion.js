@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 class Connexion extends React.Component {
@@ -13,7 +14,8 @@ class Connexion extends React.Component {
         // changer l'url
         let url = `/pseudo/${pseudo}`;
 
-        this.context.router.transitionTo(url);
+        // this.context.router.transitionTo(url);
+        this.context.router.history.push( url );
 
     };
 
@@ -35,7 +37,8 @@ class Connexion extends React.Component {
     }
 
     static contextTypes = {
-        router: React.PropTypes.object
+        router: PropTypes.object
     }
+
 }
 export default Connexion;

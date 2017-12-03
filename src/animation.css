@@ -9,13 +9,13 @@
     transform: translateY(0);
 }
 
-.message-leave {
+.message-exit {
     opacity: 1;
     transform: translateY(0);
     transition: all 200ms;
 }
 
-.message-leave-active {
+.message-exit-active {
     opacity: 0;
     transform: translateY(-100%);
 }
