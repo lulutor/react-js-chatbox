@@ -76,17 +76,21 @@ class App extends React.Component {
             );
 
         return (
-            <div className="box">
-                <div className="messages" ref={ div => this.messagesDiv = div }>
-                    <TransitionGroup className="messages-container">
-                        { messages }
-                    </TransitionGroup>
+            <div id="page-app" className="page full-page">
+                <div className="chatbox">
+                    <div className="messages">
+                        <div className="messages-container" ref={ div => this.messagesDiv = div } >
+                            <TransitionGroup className="group">
+                                { messages }
+                            </TransitionGroup>
+                        </div>
+                    </div>
+                    <Formulaire
+                        addMessage={ this.addMessage.bind( this ) }
+                        pseudo={ this.props.match.params.pseudo }
+                        length={ 200 }
+                    />
                 </div>
-                <Formulaire
-                    addMessage={ this.addMessage.bind( this ) }
-                    pseudo={ this.props.match.params.pseudo }
-                    length={ 200 }
-                />
             </div>
         );
     }

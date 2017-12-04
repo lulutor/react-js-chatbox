@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "@types/react": "16.0.25",
+    "bootstrap": "^3.3.7",
     "prop-types": "15.6.0",
     "re-base": "3.2.0",
     "react": "16.2.0",
     "react-addons-css-transition-group": "15.6.2",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "16.2.0",
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1"

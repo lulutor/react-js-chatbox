@@ -10,25 +10,18 @@ import NotFound from './components/not-found';
 import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
 
 // css
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap-theme.min.css';
 import './index.css';
 
 
 const Root = () => {
-
-    const MyApp = props => {
-        return (
-            <App
-                { ...props }
-            />
-        );
-    };
-
     return (
         <BrowserRouter>
             <div>
                 <Switch>
-                    <Route exact path="/" component={ withRouter(Connexion) } />
-                    <Route path="/pseudo/:pseudo" component={ MyApp }/>
+                    <Route exact path="/" component={ withRouter( Connexion ) } />
+                    <Route path="/pseudo/:pseudo" component={ props => <App { ...props } maxMessages={ 10 } /> }/>
                     <Route component={ NotFound }/>
                 </Switch>
             </div>

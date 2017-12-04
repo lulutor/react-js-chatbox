@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// Bootstrap components
+import { Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon } from 'react-bootstrap';
 
 class Formulaire extends React.Component {
 
     state = {
       length: this.props.length
-    }
+    };
 
     createMessage( event ) {
 
@@ -18,39 +20,44 @@ class Formulaire extends React.Component {
 
         this.props.addMessage( message );
 
-        this.messageForm.reset();
+
+        document.getElementById( this.messageForm.props.id ).reset();
 
         this.setState( { length: this.props.length } );
 
     }
 
     compteur( event ) {
-
         const length = this.props.length - this.message.value.length;
-
         this.setState( { length } );
-
     }
 
     render() {
 
         return (
-            <form
+            <Form
+                id='writingForm'
                 className="form"
-                onSubmit={ this.createMessage.bind( this ) }
                 ref={ form => this.messageForm = form }
+                onSubmit={ this.createMessage.bind( this ) }
             >
-                <textarea
-                    required
-                    maxLength={ this.props.length }
-                    ref={ msg => this.message = msg }
-                    onChange={ this.compteur.bind( this ) }
-                />
 
-                <div className="info">{ this.state.length }</div>
+                <FormGroup controlId="formControlsTextarea">
+                    <ControlLabel>Your message <span className="info">{ this.state.length }</span></ControlLabel>
+                    <FormControl
+                        required
+                        maxLength={ this.props.length }
+                        inputRef={ msg => this.message = msg }
+                        onChange={ this.compteur.bind( this ) }
+                        componentClass="textarea"
+                        placeholder="What's up dude?!" />
+                </FormGroup>
 
-                <button type="submit">Envoyer</button>
-            </form>
+                <Button bsStyle="primary"
+                        bsSize="large"
+                        block
+                        type="submit"><Glyphicon glyph="send" /> &nbsp; SEND</Button>
+            </Form>
         );
 
     }
@@ -59,7 +66,7 @@ class Formulaire extends React.Component {
         addMessage: PropTypes.func.isRequired,
         pseudo: PropTypes.string.isRequired,
         length: PropTypes.number.isRequired
-    }
+    };
 
 }
 export default Formulaire;
