@@ -90,8 +90,6 @@ body {
     font-size: 1.6rem;
     border: 1px solid darkgray;
     border-radius: 2px;
-    /*overflow-wrap: break-word;*/
-    /*word-wrap: break-word;*/
     position: relative;
 }
 
@@ -116,20 +114,9 @@ body {
     background-color: #eceff1;
 }
 
-
-/*.messages-container > * {*/
-/*padding: 5px 10px;*/
-/*max-width: 75%;*/
-/*border-radius: 2px;*/
-/*margin: 10px 0;*/
-/*overflow-wrap: break-word;*/
-/*word-wrap: break-word;*/
-/*}*/
-
-
-/*!* ----------------------------*/
-/*MESSAGE*/
-/*---------------------------- *!*/
+/* ----------------------------
+    MESSAGE
+---------------------------- */
 #page-app .chatbox .messages-container .group .message {
     max-width: 50%;
     min-width: 40%;
@@ -140,13 +127,13 @@ body {
 
 #page-app .chatbox .user-message {
     align-self: flex-end;
-    background-color: #2196F3;
     color: #fff;
+    background-image: linear-gradient(to bottom, #414345 0, #232526 100%);
 }
 
 #page-app .chatbox .messages-container .group .not-user-message {
     align-self: flex-start;
-    background-color: #eceff1;
+    background-image: linear-gradient(to bottom, #E0EAFC 0, #CFDEF3 100%);
 }
 
 
@@ -160,14 +147,14 @@ body {
     right: 10px;
     width: 0;
     border-width: 7px 0 0 10px;
-    border-color: #2196F3 transparent;
+    border-color: #232526 transparent;
 }
 #page-app .chatbox .messages-container .group .not-user-message:after {
     top: -7px;
     left: 10px;
     width: 0;
     border-width: 0 10px 7px 0;
-    border-color: #eceff1 transparent;
+    border-color: #E0EAFC transparent;
 }
 
 
