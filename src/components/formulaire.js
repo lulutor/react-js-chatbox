@@ -41,8 +41,9 @@ class Formulaire extends React.Component {
                 this.message.value += '\n';
             }
             else {
-                // just enter: send the message
-                this.createMessage( event );
+                // trigger click button to submit form
+                event.preventDefault();
+                document.getElementById( this.submitButton.props.id ).click();
             }
         }
 
@@ -69,7 +70,10 @@ class Formulaire extends React.Component {
                         componentClass="textarea"
                         placeholder="What's up dude?!" />
                 </FormGroup>
-                <Button bsStyle="primary"
+                <Button
+                        id="submitButton"
+                        ref={ input => this.submitButton = input  }
+                        bsStyle="primary"
                         bsSize="large"
                         block
                         type="submit"><Glyphicon glyph="send" /> &nbsp; SEND</Button>
