@@ -27,9 +27,25 @@ class Formulaire extends React.Component {
 
     }
 
-    compteur( event ) {
+    updateCounter( event ) {
         const length = this.props.length - this.message.value.length;
         this.setState( { length } );
+    }
+
+    onKeyDown( event ) {
+        // pressing enter
+        if( event.keyCode === 13 ) {
+            // with alt key or ctrl key
+            if( event.altKey || event.ctrlKey ) {
+                // add a line
+                this.message.value += '\n';
+            }
+            else {
+                // just enter: send the message
+                this.createMessage( event );
+            }
+        }
+
     }
 
     render() {
@@ -45,18 +61,19 @@ class Formulaire extends React.Component {
                 <FormGroup controlId="formControlsTextarea">
                     <ControlLabel>Your message <span className="info">{ this.state.length }</span></ControlLabel>
                     <FormControl
+                        onKeyDown={ this.onKeyDown.bind( this )  }
                         required
                         maxLength={ this.props.length }
                         inputRef={ msg => this.message = msg }
-                        onChange={ this.compteur.bind( this ) }
+                        onChange={ this.updateCounter.bind( this ) }
                         componentClass="textarea"
                         placeholder="What's up dude?!" />
                 </FormGroup>
-
                 <Button bsStyle="primary"
                         bsSize="large"
                         block
                         type="submit"><Glyphicon glyph="send" /> &nbsp; SEND</Button>
+
             </Form>
         );
 
