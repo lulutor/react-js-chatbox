@@ -77,6 +77,7 @@ class App extends React.Component {
         return (
             <div id="page-app" className="page full-page">
                 <div className="chatbox">
+                    <h1>Welcome { this.props.match.params.pseudo }</h1>
                     <div className="messages">
                         <div className="messages-container" ref={ div => this.messagesDiv = div } >
                             <TransitionGroup className="group">
