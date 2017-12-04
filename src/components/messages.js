@@ -10,7 +10,7 @@ class Message extends React.Component {
         return (
             <p className={ `message ${ isUser ? 'user-message' : 'not-user-message' }`}>
                 <span className="author"><Glyphicon glyph='user' /> { isUser ? 'Me' : `${ this.props.details.pseudo }` }:</span>
-                <br/> { this.props.details.message }
+                <br/>{ this.props.details.message }
             </p>
         );
     }

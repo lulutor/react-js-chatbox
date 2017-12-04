@@ -21,7 +21,7 @@ const Root = () => {
             <div>
                 <Switch>
                     <Route exact path="/" component={ withRouter( Connexion ) } />
-                    <Route path="/pseudo/:pseudo" component={ props => <App { ...props } maxMessages={ 10 } /> }/>
+                    <Route path="/pseudo/:pseudo" component={ props => <App { ...props } maxMessages={ 20 } /> }/>
                     <Route component={ NotFound }/>
                 </Switch>
             </div>

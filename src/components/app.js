@@ -23,7 +23,7 @@ class App extends React.Component {
     }
 
     componentDidUpdate() {
-       // Mettre le scroll en bas
+       // scroll down to the last message
         this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight;
     }
 
@@ -33,22 +33,21 @@ class App extends React.Component {
 
     addMessage( message ) {
 
-        // copier le state
+        // copy texts
         const messages = { ...this.state.messages };
 
-        // ajoute le timestamp
+        // add a timestamp to create a unique message
         const timestamp = Date.now();
-
-        // creation du message unique
         messages[ `message-${ timestamp }` ] = message;
 
+        // creates lists of messages to add to the state
         Object.keys( messages )
-            // selectionne les messages de la fin du tableau à la fin du tableau - le nombre maximum de messages
+            // select messages from the end of the array to [the end of the array - maximum number f messages to save]
             .slice( 0, -( this.props.maxMessages ) )
-            // pour chaque message a supprimer, attribue une value null
+            // for each message to delete, define null will delete it from the databse
             .map( key => messages[ key ] = null );
 
-        // met a jour le state
+        // update the state with the final message list
         this.setState( {  messages } );
 
     }
@@ -109,7 +108,7 @@ class App extends React.Component {
     };
 
     static defaultProps = {
-        maxMessages: 5
+        maxMessages: 10
     };
 }
 export default App;
