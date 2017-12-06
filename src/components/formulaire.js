@@ -9,13 +9,15 @@ class Formulaire extends React.Component {
       length: this.props.length
     };
 
+    componentDidUpdate() {}
+
     createMessage( event ) {
 
         event.preventDefault();
 
         const message = {
             message: this.message.value,
-            pseudo: this.props.pseudo
+            email: this.props.email
         };
 
         this.props.addMessage( message );
@@ -54,7 +56,7 @@ class Formulaire extends React.Component {
         return (
             <Form
                 id='writingForm'
-                className="form"
+                className={ this.props.enabled ? 'form' : 'form disabled' }
                 ref={ form => this.messageForm = form }
                 onSubmit={ this.createMessage.bind( this ) }
             >
@@ -65,12 +67,16 @@ class Formulaire extends React.Component {
                         onKeyDown={ this.onKeyDown.bind( this )  }
                         required
                         maxLength={ this.props.length }
-                        inputRef={ msg => this.message = msg }
+                        inputRef={ msg => {
+                            if ( msg ) msg.disabled = !this.props.enabled;
+                            this.message = msg;
+                        }}
                         onChange={ this.updateCounter.bind( this ) }
                         componentClass="textarea"
-                        placeholder="What's up dude?!" />
+                        placeholder="Enter a message (ctrl + enter or alt + enter for new line)" />
                 </FormGroup>
                 <Button
+                        disabled={ !this.props.enabled }
                         id="submitButton"
                         ref={ input => this.submitButton = input  }
                         bsStyle="primary"
@@ -84,8 +90,9 @@ class Formulaire extends React.Component {
     }
 
     static propTypes = {
+        enabled: PropTypes.bool.isRequired,
         addMessage: PropTypes.func.isRequired,
-        pseudo: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
         length: PropTypes.number.isRequired
     };
 

@@ -6,4 +6,8 @@ const firebaseApp = firebase.initializeApp({
     databaseURL: "https://prstbt-chatbox.firebaseio.com",
 });
 const database = Rebase.createClass( firebaseApp.database() );
-export default database;
+
+export {
+    firebaseApp,
+    database
+};

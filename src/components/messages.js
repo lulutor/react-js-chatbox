@@ -6,10 +6,10 @@ import { Glyphicon } from 'react-bootstrap';
 class Message extends React.Component {
 
     render() {
-        let isUser = this.props.isUser( this.props.details.pseudo );
+        let isUser = this.props.isUser( this.props.details.email );
         return (
             <p className={ `message ${ isUser ? 'user-message' : 'not-user-message' }`}>
-                <span className="author"><Glyphicon glyph='user' /> { isUser ? 'Me' : `${ this.props.details.pseudo }` }:</span>
+                <span className="author"><Glyphicon glyph='user' /> { isUser ? 'Me' : `${ this.props.details.email }` }:</span>
                 <br/>{ this.props.details.message }
             </p>
         );
@@ -17,7 +17,7 @@ class Message extends React.Component {
 
     static propTypes = {
         details: PropTypes.shape({
-            pseudo: PropTypes.string.isRequired,
+            email: PropTypes.string.isRequired,
             message: PropTypes.string.isRequired
         })
     }

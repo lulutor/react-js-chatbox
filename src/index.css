@@ -1,6 +1,6 @@
-/*!* ----------------------------*/
-/*Typo*/
-/*---------------------------- *!*/
+/* ----------------------------
+    Typo
+---------------------------- */
 
 @import url('https://fonts.googleapis.com/css?family=Cuprum');
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
@@ -16,7 +16,7 @@ body {
 }
 
 /* ----------------------------
-	STRUCTURE
+    STRUCTURE
 ---------------------------- */
 html {
     box-sizing: border-box;
@@ -64,7 +64,7 @@ body {
 }
 
 /* ----------------------------
-	CONNECTION
+    CONNECTION
 ---------------------------- */
 #page-connection {
 
@@ -74,8 +74,72 @@ body {
     font-size: 12px;
 }
 
+#page-app .chatbox-header {
+    max-width: 500px;
+    width: 100%;
+    border-radius: 2px;
+    background: #fff;
+    margin-bottom: 2rem;
+    padding: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+    border: 1px solid darkgray;
+}
+#page-app .chatbox-header h1 {
+    margin: 0;
+}
+
+#page-app .chatbox-header .btn-login {
+    background-image: none;
+    text-shadow: none;
+    border-color: rgba(0,0,0,0.2);
+    color: #fff;
+    padding-left: 32px;
+    height: 30px;
+    line-height: 18px;
+    font-weight: normal;
+    outline: none;
+}
+
+#page-app .chatbox-header .btn-login .fab {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 28px;
+    text-align: center;
+    line-height: 28px;
+    border-right: 1px solid rgba(0,0,0,0.2);
+}
+
+#page-app .chatbox-header .github-button {
+    background-color: #444;
+
+}
+#page-app .chatbox-header .github-button:hover {
+    background-color: #2b2b2b;
+
+}
+
+
+#page-app .chatbox-header .facebook-button {
+    background-color: #3b5998;
+}
+#page-app .chatbox-header .facebook-button:hover {
+    background-color: #2d4373;
+}
+
+#page-app .chatbox-header .twitter-button {
+    background-color: #55acee;
+}
+#page-app .chatbox-header .twitter-button:hover {
+    background-color: #2795e9;
+}
+
 /* ----------------------------
-	MESSAGES
+    MESSAGES
 ---------------------------- */
 
 #page-app .chatbox {
@@ -100,6 +164,9 @@ body {
     max-height: calc( 300px - 2rem );
     overflow-y: scroll;
 }
+#page-app .chatbox .messages-container.disabled {
+    filter: blur(5px);
+}
 #page-app .chatbox .messages-container .group {
     display: flex;
     flex-direction: column;
@@ -123,6 +190,7 @@ body {
     position: relative;
     padding: 1rem;
     white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 #page-app .chatbox .user-message {
@@ -168,14 +236,20 @@ body {
     top: 0;
 }
 
-/*!* ----------------------------*/
-/*FORMULAIRE*/
-/*---------------------------- *!*/
+/* ----------------------------
+    FORMULAIRE
+---------------------------- */
 
 #page-app .chatbox label {
     width: 100%;
     margin-top: 2rem;
 }
+
+/*#page-app .chatbox .form.disabled .form-group:after {*/
+    /*content: 'You need to log to your account';*/
+    /*font-style: italic;*/
+    /*font-size: 1rem;*/
+/*}*/
 
 #page-app .chatbox .info {
     float: right;
@@ -199,9 +273,9 @@ body {
 }
 
 
-/*!* ----------------------------*/
-/*NotFound*/
-/*---------------------------- *!*/
+/* ----------------------------
+    NotFound
+---------------------------- */
 #page-not-found {
 }
 #page-not-found h1,
