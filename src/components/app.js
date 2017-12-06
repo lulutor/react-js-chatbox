@@ -189,7 +189,8 @@ class App extends React.Component {
         else {
             titles =
                 <div className="titles">
-                    <h1>Welcome { this.state.user.email }</h1>
+                    <h1>Welcome</h1>
+                    <p>{ this.state.user.email }</p>
                 </div>;
 
             buttons =
