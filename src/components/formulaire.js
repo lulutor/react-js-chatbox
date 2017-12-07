@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 // Bootstrap components
 import { Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon } from 'react-bootstrap';
@@ -23,7 +24,8 @@ class Formulaire extends React.Component {
         this.props.addMessage( message );
 
 
-        document.getElementById( this.messageForm.props.id ).reset();
+        ReactDOM.findDOMNode(this.messageForm).reset();
+        // document.getElementById( this.messageForm.props.id ).reset();
 
         this.setState( { length: this.props.length } );
 
@@ -45,7 +47,8 @@ class Formulaire extends React.Component {
             else {
                 // trigger click button to submit form
                 event.preventDefault();
-                document.getElementById( this.submitButton.props.id ).click();
+                ReactDOM.findDOMNode(this.submitButton).click();
+                // document.getElementById( this.submitButton.props.id ).click();
             }
         }
 
