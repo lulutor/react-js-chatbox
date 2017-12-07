@@ -1,5 +1,7 @@
-import React        from 'react';
-import { render }   from 'react-dom';
+// @flow
+
+import React    from 'react';
+import ReactDOM from 'react-dom';
 
 // components
 import App from './components/app';
@@ -19,7 +21,7 @@ import './assets/fontawesome-pro-5.0.0/web-fonts-with-css/css/fontawesome-all.mi
 import './index.css';
 
 
-const Root = () => {
+const Root = (): BrowserRouter => {
     return (
         <BrowserRouter>
             <div>
@@ -30,11 +32,9 @@ const Root = () => {
             </div>
         </BrowserRouter>
     );
-
-
 };
 
-render(
+ReactDOM.render(
     <Root />,
-    document.getElementById('root')
+    document.querySelector('#root')
 );

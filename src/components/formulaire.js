@@ -1,61 +1,79 @@
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+
 // Bootstrap components
 import { Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon } from 'react-bootstrap';
 
-class Formulaire extends React.Component {
+type Props = {
+    enabled: boolean,
+    addMessage: ( msg: {
+        message: string,
+        email: string
+    } ) => void,
+    email: string,
+    length: number
+};
+
+type State = {
+    length: number,
+};
+
+class Formulaire extends React.Component<Props, State> {
+
+    messageForm: ?HTMLFormElement;
+    message: ?HTMLTextAreaElement;
+    submitButton: ?HTMLButtonElement;
 
     state = {
       length: this.props.length
     };
 
-    componentDidUpdate() {}
+    componentDidUpdate(): void {}
 
-    createMessage( event ) {
-
+    createMessage( event:Event ): void {
         event.preventDefault();
 
         const message = {
-            message: this.message.value,
+            message: this.message instanceof HTMLTextAreaElement ? this.message.value : '',
             email: this.props.email
         };
 
         this.props.addMessage( message );
 
-
-        ReactDOM.findDOMNode(this.messageForm).reset();
-        // document.getElementById( this.messageForm.props.id ).reset();
+        const form: ( null | Element | Text ) = ReactDOM.findDOMNode( this.messageForm );
+        if ( form && form instanceof HTMLFormElement ) form.reset();
 
         this.setState( { length: this.props.length } );
-
     }
 
-    updateCounter( event ) {
-        const length = this.props.length - this.message.value.length;
-        this.setState( { length } );
+    updateCounter( event:Event ): void {
+        if( this.message instanceof HTMLTextAreaElement ) {
+            const length = this.props.length - this.message.value.length;
+            this.setState( { length } );
+        }
     }
 
-    onKeyDown( event ) {
+    onKeyDown( event:KeyboardEvent ): void {
         // pressing enter
         if( event.keyCode === 13 ) {
             // with alt key or ctrl key
-            if( event.altKey || event.ctrlKey ) {
+            if( event.ctrlKey || event.altKey ) {
                 // add a line
-                this.message.value += '\n';
+                if ( this.message instanceof HTMLTextAreaElement ) this.message.value += '\n';
             }
             else {
                 // trigger click button to submit form
                 event.preventDefault();
-                ReactDOM.findDOMNode(this.submitButton).click();
-                // document.getElementById( this.submitButton.props.id ).click();
+                const button: ( null | Element | Text ) = ReactDOM.findDOMNode( this.submitButton );
+                if ( button && button instanceof HTMLButtonElement) button.click();
             }
         }
-
     }
 
-    render() {
-
+    render(): Form {
         return (
             <Form
                 id='writingForm'
@@ -89,7 +107,6 @@ class Formulaire extends React.Component {
 
             </Form>
         );
-
     }
 
     static propTypes = {

@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import Formulaire from './formulaire';
 import Message from './messages';
@@ -5,6 +7,7 @@ import { firebaseApp, database } from '../database';
 import firebase from 'firebase';
 import PropTypes from 'prop-types';
 import * as fakeMessages from '../assets/fakemessages';
+import { Helpers } from '../helpers';
 
 //css
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -14,7 +17,19 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 
 import '../animation.css';
 
-class App extends React.Component {
+type Props = {
+    maxMessages: number
+};
+
+type State = {
+    messages: {},
+    user: {
+        uid: ?string,
+        email: string
+    }
+};
+
+class App extends React.Component<Props, State> {
 
     state = {
         messages: {},
@@ -24,29 +39,32 @@ class App extends React.Component {
         }
     };
 
-    componentWillMount() {
+    messagesDiv: ?HTMLElement;
+    refMessagesBind: ?{endpoint: string, method: string, id: number, context: App};
+    refMessagesSync: ?{endpoint: string, method: string, id: number, context: App};
+
+    componentWillMount(): void {
         firebase.auth().onAuthStateChanged( user => user ? this.onLoginDone( { user } ) : false );
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(): void {
         this.scrollDownMessages();
     }
 
-    componentDidMount() {
+    componentDidMount(): void {
         this.scrollDownMessages();
     }
 
-    scrollDownMessages () {
+    scrollDownMessages (): void {
        // scroll down to the last message
-        this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight;
+        if ( this.messagesDiv instanceof HTMLElement ) this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight;
     }
 
-    isUser( email ) {
+    isUser( email: string ): boolean {
         return email === this.state.user.email;
     }
 
-    addMessage( message ) {
-
+    addMessage( message: { message: string, email: string } ): void {
         // copy texts
         const messages = { ...this.state.messages };
 
@@ -55,7 +73,7 @@ class App extends React.Component {
         messages[ `message-${ timestamp }` ] = message;
 
         // creates lists of messages to add to the state
-        Object.keys( messages )
+        Helpers.getKeys( messages )
             // select messages from the end of the array to [the end of the array - maximum number f messages to save]
             .slice( 0, -( this.props.maxMessages ) )
             // for each message to delete, define null will delete it from the databse
@@ -63,12 +81,9 @@ class App extends React.Component {
 
         // update the state with the final message list
         this.setState( {  messages } );
-
     }
 
-    login( provider ) {
-
-
+    login( provider: string ): void {
         let authProvider = null;
 
         switch ( provider ) {
@@ -97,10 +112,9 @@ class App extends React.Component {
             console.log(`Login error: no provider found`);
             alert(`Login error: no provider found`);
         }
-
     }
 
-    onLoginDone( authData ) {
+    onLoginDone( authData: {  user: { uid: ?string, email: string } } ): void {
       if( authData.user.uid !== null ) {
             this.refMessagesBind = database.bindToState( '/messages', {
                 context: this,
@@ -110,7 +124,7 @@ class App extends React.Component {
         }
     }
 
-    onDataBinded( authData ) {
+    onDataBinded( authData: {  user: { uid: ?string, email: string } } ): void {
         database.removeBinding( this.refMessagesBind );
         this.refMessagesSync = database.syncState( '/messages', {
             context: this,
@@ -125,14 +139,14 @@ class App extends React.Component {
         });
     }
 
-    logout() {
+    logout(): void {
         firebase.auth().signOut()
             .then(() => {
 
                 database.removeBinding( this.refMessagesSync );
 
                 let oldMessages = { ...this.state.messages };
-                Object.keys( oldMessages ).forEach( key => {
+                Helpers.getKeys( oldMessages ).forEach( key => {
                     oldMessages[ key ] = null;
                 });
                 oldMessages = {};
@@ -151,12 +165,12 @@ class App extends React.Component {
             });
     }
 
-    renderHeader() {
+    renderHeader(): React$Element<'div'> {
 
         let titles, buttons = null;
 
         // user doesn't exist
-        if ( !this.state.user.uid ) {
+        if ( this.state.user.uid === null ) {
             titles =
                 <div className="titles">
                     <h1>Welcome</h1>
@@ -205,28 +219,28 @@ class App extends React.Component {
 
     }
 
-    render() {
+    render(): React$Element<'div'> {
 
         let messagesList = this.state.messages;
 
         // fake messages if user is disconnected
         if ( !firebase.auth().currentUser ) {
-            messagesList = Object.keys(fakeMessages).map(  ( key, i ) => {
-                let msg = fakeMessages[key];
+            messagesList = Helpers.getKeys( fakeMessages ).map(  ( key, i ) => {
+                let msg = fakeMessages[ key ];
                 if( i % 2) {
                     msg = {
                         email: this.state.user.email,
-                        message: fakeMessages[key].message
+                        message: fakeMessages[ key ].message
                     }
                 }
                 return msg;
             });
         }
 
+        const totalNbMessages = Helpers.getKeys( messagesList ).length;
 
-        const totalNbMessages = Object.keys( messagesList ).length;
-        const messages = Object
-            .keys( messagesList )
+        const messages = Helpers
+            .getKeys( messagesList )
             .slice(
                 totalNbMessages > this.props.maxMessages ? totalNbMessages - this.props.maxMessages : 0,
                 totalNbMessages
@@ -271,7 +285,7 @@ class App extends React.Component {
         );
     }
 
-    componentWillUnmount() {}
+    componentWillUnmount(): void {}
 
     static propTypes = {
         maxMessages: PropTypes.number

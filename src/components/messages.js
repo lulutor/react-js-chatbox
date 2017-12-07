@@ -1,11 +1,23 @@
+// @flow
+
 import React from 'react';
 import PropTypes from 'prop-types';
+
 // Bootstrap components
 import { Glyphicon } from 'react-bootstrap';
 
-class Message extends React.Component {
+type Props = {
+    details: {
+        email: string,
+        message: string
+    },
+    isUser: ( str: string ) => boolean
+};
 
-    render() {
+
+class Message extends React.Component<Props> {
+
+    render(): React$Element<'p'> {
         let isUser = this.props.isUser( this.props.details.email );
         return (
             <p className={ `message ${ isUser ? 'user-message' : 'not-user-message' }`}>
@@ -19,7 +31,8 @@ class Message extends React.Component {
         details: PropTypes.shape({
             email: PropTypes.string.isRequired,
             message: PropTypes.string.isRequired
-        })
+        }),
+        isUser: PropTypes.func.isRequired
     }
 
 }

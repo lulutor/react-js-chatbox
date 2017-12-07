@@ -1,9 +1,11 @@
+// @flow
+
 import React from 'react';
 
 // Bootstrap components
 import { Well, Glyphicon } from 'react-bootstrap';
 
-const NotFound = () => {
+const NotFound = (): React$Element<'div'> => {
     return (
         <div id="page-not-found" className="page full-page">
             <div className="page-box-min flex flex-center flex-col">
@@ -14,4 +16,8 @@ const NotFound = () => {
         </div>
     );
 };
+
 export default NotFound;
+
+
+
