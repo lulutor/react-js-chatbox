@@ -1,4 +1,4 @@
-# React JS Chatbox
+# React JS Chatbox  [![GitHub top language](https://img.shields.io/github/languages/top/proustibat/react-js-chatbox.svg)](https://github.com/proustibat/react-js-chatbox)
 
 Based on Udemy tutorial by Anthony Welc (https://twitter.com/@AnthoWelc)
 
